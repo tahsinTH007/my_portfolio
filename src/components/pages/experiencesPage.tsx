@@ -1,219 +1,264 @@
 "use client";
 
-import { Briefcase, Award, Clock, ExternalLink } from "lucide-react";
+import { Briefcase, Clock, MapPin, Terminal, Link } from "lucide-react";
+import NextLink from "next/link";
 
-const experiences = [
-  {
-    role: "Senior Full-Stack Engineer",
-    company: "Freelance / Remote",
-    period: "2024 — Present",
-    type: "Contract",
-    stack: ["Next.js", "Node.js", "PostgreSQL", "Docker"],
-    points: [
-      "Architected and shipped 3 SaaS products from 0 → 1, handling auth, billing, and multi-tenancy.",
-      "Reduced client page load times by 60% via ISR and edge caching strategies.",
-      "Implemented RBAC systems and JWT-based auth flows across REST APIs.",
-    ],
-  },
-  {
-    role: "Full-Stack Developer",
-    company: "Tech Startup, Dhaka",
-    period: "2023 — 2024",
-    type: "Full-time",
-    stack: ["React", "Express", "MongoDB", "Redis"],
-    points: [
-      "Led migration of a legacy PHP codebase to a modern React + Node.js stack.",
-      "Built real-time notification system using WebSockets, serving 10k+ daily users.",
-      "Mentored 2 junior developers and established code review culture.",
-    ],
-  },
-  {
-    role: "Junior Developer",
-    company: "Digital Agency, Dhaka",
-    period: "2022 — 2023",
-    type: "Full-time",
-    stack: ["React", "REST APIs", "MySQL", "Tailwind"],
-    points: [
-      "Delivered 8+ client projects on time with pixel-accurate UI implementations.",
-      "Integrated third-party APIs (payment gateways, maps, CMS) across projects.",
-      "Maintained and improved CI/CD pipelines via GitHub Actions.",
-    ],
-  },
-];
-
-const awards = [
-  { label: "Hackathon Winner", desc: "DU CS Fest 2022" },
-  { label: "Open Source", desc: "2k+ GitHub stars" },
-  { label: "Certifications", desc: "AWS Cloud Practitioner" },
-];
-
-function StackTag({ label }: { label: string }) {
-  return (
-    <span
-      className="text-[10px] px-2 py-1 border-[1.5px] border-[#F5F2EB] tracking-[0.04em] cursor-default transition-colors duration-150"
-      style={{ color: "#F5F2EB" }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLSpanElement).style.background = "#F0C84A";
-        (e.currentTarget as HTMLSpanElement).style.color = "#1A1A18";
-        (e.currentTarget as HTMLSpanElement).style.borderColor = "#F0C84A";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLSpanElement).style.background = "transparent";
-        (e.currentTarget as HTMLSpanElement).style.color = "#F5F2EB";
-        (e.currentTarget as HTMLSpanElement).style.borderColor = "#F5F2EB";
-      }}
-    >
-      {label}
-    </span>
-  );
-}
+const experience = {
+  role: "Full-Stack Developer",
+  company: "Cyber World IT",
+  location: "583 Shamim Sarani, Mirpur, Dhaka, Bangladesh",
+  locationType: "On-site",
+  period: "Aug 2024 — Aug 2025",
+  type: "Full-time",
+  project: "Medicare24bd — Healthcare Platform",
+  stack: [
+    "Next.js",
+    "Tailwind CSS",
+    "Node.js",
+    "Express.js",
+    "SQL",
+    "Sequelize",
+  ],
+  points: [
+    "Developed responsive and scalable user interfaces for the Medicare24bd healthcare platform using Next.js and Tailwind CSS.",
+    "Built dynamic patient management systems and workflow-based forms for clinical data entry.",
+    "Integrated REST APIs for secure data handling between frontend and backend services.",
+    "Developed backend services using Node.js, Express.js, SQL, and Sequelize ORM.",
+    "Designed and managed relational database structures and optimized SQL queries.",
+    "Implemented PDF generation and export functionality for medical reports and prescriptions.",
+    "Improved application performance through Server-Side Rendering (SSR) and optimized data handling.",
+    "Identified and resolved bugs across the stack to enhance system stability and user experience.",
+  ],
+};
 
 export default function ExperiencePage() {
+  const exp = experience;
+
   return (
     <div
-      className="min-h-screen px-8 py-10"
+      className="min-h-screen px-6 py-8"
       style={{
         fontFamily: "'Space Mono', monospace",
         background: "#F5F2EB",
         color: "#1A1A18",
       }}
     >
-      {/* Header */}
-      <h1
-        className="text-5xl leading-none mb-1"
-        style={{
-          fontFamily: "'DM Serif Display', serif",
-          letterSpacing: "-1px",
-        }}
-      >
-        Experience.
-      </h1>
-      <p
-        className="text-[11px] tracking-[0.12em] uppercase mb-8"
-        style={{ color: "#7A7065" }}
-      >
-        // roles, impact &amp; stack
-      </p>
+      <div className="mb-6 pb-6 border-b border-[#1A1A18]/10">
+        <p
+          className="text-[10px] tracking-[0.2em] uppercase mb-2"
+          style={{ color: "#A09890" }}
+        >
+          // roles, impact & stack
+        </p>
+        <h1
+          className="text-[clamp(2.5rem,6vw,4.5rem)] leading-none"
+          style={{
+            fontFamily: "'DM Serif Display', serif",
+            letterSpacing: "-2px",
+          }}
+        >
+          Experience.
+        </h1>
+      </div>
 
-      <div className="flex flex-col gap-5">
-        {/* Experience Cards */}
-        {experiences.map((exp, i) => (
+      <div className="grid md:grid-cols-2 gap-3">
+        <div
+          className="border border-[#1A1A18] p-6 flex flex-col"
+          style={{ background: "#1A1A18" }}
+        >
           <div
-            key={i}
-            className="border-2 border-[#1A1A18] p-6"
+            className="flex items-center gap-1.5 text-[9px] font-bold tracking-[0.18em] uppercase mb-4"
+            style={{ color: "#F0C84A" }}
+          >
+            <Briefcase size={10} /> {exp.type}
+          </div>
+
+          <div
+            className="text-[20px] leading-tight mb-1"
             style={{
-              background: i === 0 ? "#1A1A18" : i === 1 ? "#FDFAF4" : "#F5F2EB",
+              fontFamily: "'DM Serif Display', serif",
+              color: "#F5F2EB",
             }}
           >
-            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-              <div>
-                <div
-                  className="text-[10px] font-bold tracking-[0.14em] uppercase mb-1"
-                  style={{ color: i === 0 ? "#F0C84A" : "#7A7065" }}
-                >
-                  <Briefcase size={11} className="inline mr-1.5" />
-                  {exp.type}
-                </div>
-                <div
-                  className="text-[18px] leading-tight mb-0.5"
-                  style={{
-                    fontFamily: "'DM Serif Display', serif",
-                    color: i === 0 ? "#F5F2EB" : "#1A1A18",
-                  }}
-                >
-                  {exp.role}
-                </div>
-                <div
-                  className="text-[11px] tracking-[0.06em]"
-                  style={{ color: i === 0 ? "#9A9590" : "#7A7065" }}
-                >
-                  {exp.company}
-                </div>
-              </div>
+            {exp.role}
+          </div>
+
+          <div
+            className="text-[13px] font-bold tracking-[0.04em] mb-3"
+            style={{ color: "#F0C84A" }}
+          >
+            {exp.company}
+          </div>
+
+          <div className="flex flex-col gap-1.5 mb-5">
+            <div className="flex items-center gap-1.5 text-[10px] tracking-[0.05em] text-white">
+              <MapPin size={9} />
+              {exp.location}
+            </div>
+            <div className="flex items-center gap-1.5 text-[10px] tracking-[0.05em] text-white">
+              <Clock size={9} />
+              {exp.period}
+            </div>
+          </div>
+
+          <div className="mt-auto flex flex-col gap-3">
+            <div
+              className="text-[9px] tracking-[0.18em] uppercase"
+              style={{ color: "#7A7065" }}
+            >
+              On-site • Full-time
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {/* project tag */}
               <div
-                className="flex items-center gap-1.5 text-[10px] tracking-[0.08em] px-3 py-1.5 border-[1.5px]"
+                className="inline-flex items-center gap-1.5 text-[9px] font-bold tracking-[0.12em] uppercase px-3 py-1.5 border transition-all duration-150"
                 style={{
-                  borderColor: i === 0 ? "#444440" : "#1A1A18",
-                  color: i === 0 ? "#9A9590" : "#7A7065",
+                  borderColor: "#F0C84A",
+                  color: "#F0C84A",
+                  background: "rgba(240,200,74,0.06)",
                 }}
               >
-                <Clock size={10} />
-                {exp.period}
+                <Terminal size={9} />
+                {exp.project}
               </div>
-            </div>
 
-            {/* Stack Tags */}
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {exp.stack.map((tag) =>
-                i === 0 ? (
-                  <StackTag key={tag} label={tag} />
-                ) : (
-                  <span
-                    key={tag}
-                    className="text-[10px] px-2 py-1 border-[1.5px] border-[#1A1A18] tracking-[0.04em] cursor-default transition-colors duration-150 hover:bg-[#1A1A18] hover:text-[#F0C84A]"
-                  >
-                    {tag}
-                  </span>
-                ),
-              )}
-            </div>
-
-            {/* Points */}
-            <div className="flex flex-col gap-2">
-              {exp.points.map((pt, j) => (
-                <div key={j} className="flex gap-3 text-[11px] leading-relaxed">
-                  <span
-                    className="shrink-0 mt-0.5"
-                    style={{ color: i === 0 ? "#F0C84A" : "#7A7065" }}
-                  >
-                    →
-                  </span>
-                  <span style={{ color: i === 0 ? "#C8C3BA" : "#3A3530" }}>
-                    {pt}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-
-        {/* Awards / Extras */}
-        <div
-          className="border-2 border-[#1A1A18] p-6"
-          style={{ background: "#F0C84A" }}
-        >
-          <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.14em] uppercase mb-5">
-            <Award size={13} />
-            Highlights &amp; Extras
-          </div>
-          <div className="grid md:grid-cols-3 gap-3">
-            {awards.map(({ label, desc }) => (
-              <div
-                key={label}
-                className="border-2 border-[#1A1A18] px-4 py-3"
-                style={{ background: "#F5F2EB" }}
+              <NextLink
+                href="https://medicare24bd.com/"
+                target="_blank"
+                className="inline-flex items-center gap-1.5 text-[9px] font-bold tracking-[0.12em] uppercase px-3 py-1.5 border no-underline transition-all duration-150"
+                style={{
+                  borderColor: "#1A1A18",
+                  color: "#1A1A18",
+                  background: "#FDFAF4",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLAnchorElement;
+                  el.style.background = "#F0C84A";
+                  el.style.color = "#1A1A18";
+                  el.style.borderColor = "#1A1A18";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLAnchorElement;
+                  el.style.background = "#FDFAF4";
+                  el.style.color = "#1A1A18";
+                  el.style.borderColor = "#F0C84A";
+                }}
               >
-                <div className="text-[12px] font-bold tracking-[0.04em] mb-0.5">
-                  {label}
-                </div>
-                <div
-                  className="text-[10px] tracking-[0.08em]"
-                  style={{ color: "#7A7065" }}
-                >
-                  {desc}
-                </div>
+                <Link size={9} />
+                Live Website
+              </NextLink>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="border border-[#1A1A18] p-6 transition-all duration-200"
+          style={{ background: "#F0C84A" }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.transform = "translate(-2px,-2px)";
+            el.style.boxShadow = "3px 3px 0 #1A1A18";
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.transform = "translate(0,0)";
+            el.style.boxShadow = "none";
+          }}
+        >
+          {/* Tech Stack */}
+          <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-3">
+            Tech Stack
+          </div>
+          <div className="flex flex-wrap gap-1.5 mb-5">
+            {exp.stack.map((t) => (
+              <span
+                key={t}
+                className="text-[10px] px-2.5 py-1.5 border tracking-[0.04em] cursor-default transition-all duration-150"
+                style={{ borderColor: "#1A1A18", color: "#1A1A18" }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLSpanElement;
+                  el.style.background = "#1A1A18";
+                  el.style.color = "#F0C84A";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLSpanElement;
+                  el.style.background = "transparent";
+                  el.style.color = "#1A1A18";
+                }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-[#1A1A18]/20 mb-5" />
+
+          {/* Soft Skills */}
+          <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-3">
+            Soft Skills
+          </div>
+          <div className="flex flex-col gap-2">
+            {[
+              "Team Collaboration & Communication",
+              "Working Under Deadlines & Time Pressure",
+              "Problem Solving & Debugging Under Pressure",
+              "Taking Ownership of Features End-to-End",
+              "Adapting to New Tech & Requirements Quickly",
+            ].map((skill) => (
+              <div
+                key={skill}
+                className="flex items-center gap-2.5 text-[10px] tracking-[0.03em] px-3 py-2 border border-[#1A1A18] transition-all duration-150"
+                style={{ background: "#FDFAF4" }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.transform = "translate(-2px,-2px)";
+                  el.style.boxShadow = "3px 3px 0 #1A1A18";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.transform = "translate(0,0)";
+                  el.style.boxShadow = "none";
+                }}
+              >
+                <span style={{ color: "#1A1A18", fontSize: "8px" }}>◆</span>
+                <span style={{ color: "#3A3530" }}>{skill}</span>
               </div>
             ))}
           </div>
-          <div className="mt-4 flex items-center gap-1.5">
-            <a
-              href="#"
-              className="flex items-center gap-1.5 text-[10px] tracking-widest uppercase font-bold no-underline"
-              style={{ color: "#1A1A18" }}
-            >
-              <ExternalLink size={11} />
-              View full résumé
-            </a>
+        </div>
+
+        <div
+          className="border border-[#1A1A18] p-6 md:col-span-2 transition-all duration-200"
+          style={{ background: "#FDFAF4" }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.transform = "translate(-2px,-2px)";
+            el.style.boxShadow = "3px 3px 0 #F0C84A";
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLDivElement;
+            el.style.transform = "translate(0,0)";
+            el.style.boxShadow = "none";
+          }}
+        >
+          <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-6">
+            <Briefcase size={11} /> Responsibilities
+          </div>
+          <div className="grid md:grid-cols-2 gap-x-10">
+            {exp.points.map((pt, j) => (
+              <div
+                key={j}
+                className="flex gap-3 text-[11px] leading-[1.8] py-3"
+                style={{ borderBottom: "1px solid rgba(26,26,24,0.07)" }}
+              >
+                <span className="shrink-0 mt-0.5" style={{ color: "#C8C4BC" }}>
+                  →
+                </span>
+                <span style={{ color: "#3A3530" }}>{pt}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/navigation/sidebar";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 
@@ -31,18 +30,17 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-screen flex">
-        <SidebarProvider>
-          <AppSidebar />
+      <body className="min-h-screen flex" style={{ background: "#1A1A18" }}>
+        <AppSidebar />
 
-          <TooltipProvider>
-            <div className="flex-1 bg-[#AAD7B8] p-2">
-              <div className="h-[97vh] border-2 border-[#25343F] bg-[#F8F7F1] overflow-scroll">
-                {children}
-              </div>
-            </div>
-          </TooltipProvider>
-        </SidebarProvider>
+        <TooltipProvider>
+          <main
+            className="flex-1 overflow-y-auto border-l-2 border-[#1A1A18] h-screen"
+            style={{ background: "#F5F2EB" }}
+          >
+            {children}
+          </main>
+        </TooltipProvider>
       </body>
     </html>
   );

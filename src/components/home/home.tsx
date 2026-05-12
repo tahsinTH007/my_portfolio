@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import {
   User,
   Mail,
@@ -26,7 +26,6 @@ const skills = [
   "Redis",
   "Prisma",
 ];
-
 const experiences = [
   {
     role: "Senior Full-Stack Engineer",
@@ -47,7 +46,6 @@ const experiences = [
     stack: ["React", "REST APIs", "MySQL"],
   },
 ];
-
 const projects = [
   {
     title: "Nexus CRM",
@@ -56,6 +54,8 @@ const projects = [
     stars: 214,
     github: "https://github.com/",
     demo: "https://",
+    dark: true,
+    bg: "#1A1A18",
   },
   {
     title: "DevLink",
@@ -64,6 +64,8 @@ const projects = [
     stars: 892,
     github: "https://github.com/",
     demo: "https://",
+    dark: false,
+    bg: "#F0C84A",
   },
   {
     title: "Realtime",
@@ -72,44 +74,45 @@ const projects = [
     stars: 147,
     github: "https://github.com/",
     demo: "https://",
+    dark: false,
+    bg: "#FDFAF4",
   },
 ];
-
 const socials = [
-  { icon: FaGithub, label: "GitHub", href: "https://github.com/" },
-  { icon: FaLinkedin, label: "LinkedIn", href: "https://linkedin.com/in/" },
-  { icon: FaTwitter, label: "Twitter", href: "https://twitter.com/" },
+  { icon: FaGithub, label: "GitHub", href: "https://github.com/tahsinTH007" },
+  {
+    icon: FaLinkedin,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/tahsin-hassan-44a7b5291/",
+  },
 ];
-
 const stats = [
-  { value: "3+", label: "Years Exp." },
-  { value: "20+", label: "Projects" },
-  { value: "1k+", label: "GitHub Stars" },
+  { value: "1+ yrs", label: "Full-Stack Dev" },
+  { value: "8+ ", label: "Real Projects Built" },
+  { value: "MERN + Next", label: "Primary Stack" },
+  { value: "Realtime + APIs", label: "System Design" },
 ];
-
-// ─── Sub-components ──────────────────────────────────────────────────────────
 
 function Tag({ label, dark = false }: { label: string; dark?: boolean }) {
   return (
     <span
-      className="text-[10px] px-2 py-1 border-[1.5px] tracking-[0.04em] cursor-default transition-colors duration-150"
+      className="text-[14px] px-2 py-1 border tracking-[0.04em] cursor-default transition-all duration-150 select-none"
       style={{
-        borderColor: dark ? "#F5F2EB" : "#1A1A18",
-        color: dark ? "#F5F2EB" : "#1A1A18",
+        borderColor: dark ? "#3A3A36" : "#C8C4BC",
+        color: dark ? "#9A9590" : "#5A5048",
+        background: "transparent",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLSpanElement).style.background = "#F0C84A";
-        (e.currentTarget as HTMLSpanElement).style.color = "#1A1A18";
-        (e.currentTarget as HTMLSpanElement).style.borderColor = "#F0C84A";
+        const el = e.currentTarget as HTMLSpanElement;
+        el.style.background = "#F0C84A";
+        el.style.color = "#1A1A18";
+        el.style.borderColor = "#F0C84A";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLSpanElement).style.background = "transparent";
-        (e.currentTarget as HTMLSpanElement).style.color = dark
-          ? "#F5F2EB"
-          : "#1A1A18";
-        (e.currentTarget as HTMLSpanElement).style.borderColor = dark
-          ? "#F5F2EB"
-          : "#1A1A18";
+        const el = e.currentTarget as HTMLSpanElement;
+        el.style.background = "transparent";
+        el.style.color = dark ? "#9A9590" : "#5A5048";
+        el.style.borderColor = dark ? "#3A3A36" : "#C8C4BC";
       }}
     >
       {label}
@@ -117,58 +120,66 @@ function Tag({ label, dark = false }: { label: string; dark?: boolean }) {
   );
 }
 
-// ─── Page ────────────────────────────────────────────────────────────────────
-
 export default function HomePage() {
   return (
     <div
-      className="min-h-screen px-8 py-10"
+      className="min-h-screen px-6 py-8"
       style={{
         fontFamily: "'Space Mono', monospace",
         background: "#F5F2EB",
         color: "#1A1A18",
       }}
     >
-      {/* ── Page Header ── */}
-      <div className="mb-8">
+      {/* ── Header ── */}
+      <div className="mb-6 pb-6 border-b border-[#1A1A18]/10">
         <p
-          className="text-[11px] tracking-[0.18em] uppercase mb-1"
-          style={{ color: "#7A7065" }}
+          className="text-[14px] tracking-[0.2em] uppercase mb-2"
+          style={{ color: "#A09890" }}
         >
           // portfolio · 2025
         </p>
-        <h1
-          className="text-6xl leading-none"
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            letterSpacing: "-2px",
-          }}
-        >
-          Tahsin Hassan.
-        </h1>
+        <div className="flex items-end justify-between gap-4 flex-wrap">
+          <h1
+            className="text-[clamp(2.5rem,6vw,4.5rem)] leading-none"
+            style={{
+              fontFamily: "'DM Serif Display', serif",
+              letterSpacing: "-2px",
+            }}
+          >
+            Tahsin Hassan.
+          </h1>
+          <div
+            className="flex items-center gap-1.5 mb-1 text-[12px] tracking-[0.1em] px-3 py-1.5 border border-[#1A1A18]/15"
+            style={{ color: "#5A5048" }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{
+                background: "#4ADE80",
+                boxShadow: "0 0 0 3px rgba(74,222,128,0.2)",
+              }}
+            />
+            Available for work
+          </div>
+        </div>
       </div>
 
       {/* ── Bento Grid ── */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-        {/* ── 1. Hero Bio ── col-span-7 */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+        {/* 1. Bio */}
         <div
-          className="md:col-span-7 border-2 border-[#1A1A18] p-6 flex flex-col justify-between"
-          style={{
-            background: "#1A1A18",
-            color: "#F5F2EB",
-            minHeight: "260px",
-          }}
+          className="md:col-span-7 border border-[#1A1A18] p-6 flex flex-col justify-between"
+          style={{ background: "#1A1A18", minHeight: "260px" }}
         >
           <div>
             <div
-              className="flex items-center gap-2 text-[10px] font-bold tracking-[0.14em] uppercase mb-4"
+              className="flex items-center gap-2 text-[12px] font-bold tracking-[0.18em] uppercase mb-4"
               style={{ color: "#F0C84A" }}
             >
-              <User size={12} />
-              About Me
+              <User size={11} /> About Me
             </div>
             <p
-              className="text-[13px] leading-relaxed mb-3"
+              className="text-[12px] leading-[1.8] mb-3"
               style={{ color: "#C8C3BA" }}
             >
               Hey — I'm a{" "}
@@ -177,16 +188,14 @@ export default function HomePage() {
               products from database schema to pixel-perfect UI.
             </p>
             <p
-              className="text-[12px] leading-relaxed"
-              style={{ color: "#9A9590" }}
+              className="text-[12px] leading-[1.8]"
+              style={{ color: "#6A6A62" }}
             >
               Obsessed with clean architecture, developer experience, and
-              interfaces that feel genuinely good to use. Open to freelance
-              &amp; full-time roles.
+              interfaces that feel genuinely good to use. Open to freelance &
+              full-time roles.
             </p>
           </div>
-
-          {/* Socials */}
           <div className="flex items-center gap-2 mt-6 flex-wrap">
             {socials.map(({ icon: Icon, label, href }) => (
               <a
@@ -194,83 +203,85 @@ export default function HomePage() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-[10px] px-3 py-2 border-[1.5px] no-underline transition-colors duration-150 tracking-[0.06em]"
+                className="flex items-center gap-1.5 text-[10px] px-3 py-2 border no-underline transition-all duration-150 tracking-[0.05em]"
                 style={{
-                  borderColor: "#444440",
-                  color: "#F5F2EB",
-                  background: "#2A2A26",
+                  borderColor: "#2A2A26",
+                  color: "#9A9590",
+                  background: "#1E1E1C",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background =
-                    "#F0C84A";
-                  (e.currentTarget as HTMLAnchorElement).style.color =
-                    "#1A1A18";
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "#F0C84A";
+                  const el = e.currentTarget as HTMLAnchorElement;
+                  el.style.background = "#F0C84A";
+                  el.style.color = "#1A1A18";
+                  el.style.borderColor = "#F0C84A";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background =
-                    "#2A2A26";
-                  (e.currentTarget as HTMLAnchorElement).style.color =
-                    "#F5F2EB";
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "#444440";
+                  const el = e.currentTarget as HTMLAnchorElement;
+                  el.style.background = "#1E1E1C";
+                  el.style.color = "#9A9590";
+                  el.style.borderColor = "#2A2A26";
                 }}
               >
-                <Icon size={12} />
-                {label}
+                <Icon size={12} /> {label}
               </a>
             ))}
             <a
               href="mailto:tahsin.hassan007@gmail.com"
-              className="flex items-center gap-1.5 text-[10px] px-3 py-2 border-[1.5px] no-underline transition-colors duration-150 tracking-[0.06em]"
+              className="flex items-center gap-1.5 text-[10px] px-3 py-2 border no-underline transition-all duration-150"
               style={{
-                borderColor: "#F0C84A",
+                borderColor: "#F0C84A33",
                 color: "#F0C84A",
                 background: "transparent",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "#F0C84A";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#1A1A18";
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "#F0C84A";
+                el.style.color = "#1A1A18";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "transparent";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#F0C84A";
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "transparent";
+                el.style.color = "#F0C84A";
               }}
             >
-              <Mail size={12} />
-              tahsin.hassan007@gmail.com
+              <Mail size={12} /> tahsin.hassan007@gmail.com
             </a>
           </div>
         </div>
 
-        {/* ── 2. Stats ── col-span-5 */}
+        {/* 2. Stats */}
         <div
-          className="md:col-span-5 border-2 border-[#1A1A18] p-6 flex flex-col"
+          className="md:col-span-5 border border-[#1A1A18] p-6 flex flex-col"
           style={{ background: "#F0C84A" }}
         >
-          <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.14em] uppercase mb-5">
-            <Terminal size={12} />
-            At a Glance
+          <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-3">
+            <Terminal size={11} /> At a Glance
           </div>
 
-          <div className="grid grid-cols-3 gap-3 mb-5">
+          {/* small description */}
+          <div
+            className="text-[10px] tracking-widest uppercase mb-4"
+            style={{ color: "#5A5048" }}
+          >
+            Full-stack developer • MERN • Next.js • Backend systems
+          </div>
+
+          {/* stats */}
+          <div className="grid grid-cols-2 gap-2 mb-5">
             {stats.map(({ value, label }) => (
               <div
                 key={label}
-                className="border-2 border-[#1A1A18] px-3 py-4 flex flex-col items-center justify-center text-center"
-                style={{ background: "#F5F2EB" }}
+                className="border border-[#1A1A18] px-2 py-4 flex flex-col items-center justify-center text-center"
+                style={{ background: "#FDFAF4" }}
               >
                 <div
-                  className="text-2xl leading-none mb-1"
+                  className="text-[20px] leading-none mb-1"
                   style={{ fontFamily: "'DM Serif Display', serif" }}
                 >
                   {value}
                 </div>
                 <div
-                  className="text-[9px] tracking-widest uppercase"
+                  className="text-[8px] tracking-widest uppercase"
                   style={{ color: "#7A7065" }}
                 >
                   {label}
@@ -279,78 +290,90 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 mb-2">
-            <MapPin size={11} />
-            <span className="text-[11px] tracking-[0.04em]">
-              Dhaka, Bangladesh
-            </span>
+          {/* tech stack highlight */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {[
+              "React",
+              "Next.js",
+              "Node.js",
+              "Express",
+              "PostgreSQL",
+              "MongoDB",
+            ].map((t) => (
+              <span
+                key={t}
+                className="text-[9px] px-2 py-1 border tracking-widest uppercase"
+                style={{
+                  borderColor: "#1A1A18",
+                  color: "#1A1A18",
+                  background: "#FDFAF4",
+                }}
+              >
+                {t}
+              </span>
+            ))}
           </div>
-          <div className="flex items-center gap-2">
-            <span
-              className="w-2 h-2 rounded-full inline-block"
-              style={{
-                background: "#2A9D2A",
-                boxShadow: "0 0 0 3px rgba(42,157,42,0.25)",
-              }}
-            />
-            <span className="text-[11px] tracking-[0.04em]">
-              Available for work
-            </span>
+
+          {/* location */}
+          <div className="flex flex-col gap-2 mt-auto">
+            <div className="flex items-center gap-2 text-[11px]">
+              <MapPin size={11} /> Based in Dhaka • Open to Remote Opportunities
+            </div>
           </div>
         </div>
 
-        {/* ── 3. Skills ── col-span-5 */}
+        {/* 3. Skills */}
         <div
-          className="md:col-span-5 border-2 border-[#1A1A18] p-6"
+          className="md:col-span-5 border border-[#1A1A18] p-6"
           style={{ background: "#FDFAF4" }}
         >
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.14em] uppercase">
-              <Code2 size={12} />
-              Core Skills
+            <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase">
+              <Code2 size={11} /> Core Skills
             </div>
-            <a
+            <Link
               href="/skills"
-              className="flex items-center gap-1 text-[9px] tracking-widest uppercase no-underline transition-colors duration-150"
-              style={{ color: "#7A7065" }}
+              className="flex items-center gap-1 text-[9px] tracking-widest uppercase no-underline"
+              style={{ color: "#A09890" }}
               onMouseEnter={(e) =>
                 ((e.currentTarget as HTMLAnchorElement).style.color = "#1A1A18")
               }
               onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "#7A7065")
+                ((e.currentTarget as HTMLAnchorElement).style.color = "#A09890")
               }
             >
-              All skills <ArrowRight size={9} />
-            </a>
+              All <ArrowRight size={9} />
+            </Link>
           </div>
           <div className="flex flex-wrap gap-1.5 mb-5">
             {skills.map((s) => (
               <Tag key={s} label={s} />
             ))}
           </div>
-          <hr className="border-t border-[#1A1A18] opacity-10 mb-4" />
-          <div className="grid grid-cols-3 gap-2">
+          <div className="border-t border-[#1A1A18]/10 pt-4 grid grid-cols-3 gap-2">
             {[
               { icon: Code2, label: "Frontend" },
               { icon: Server, label: "Backend" },
-              { icon: Database, label: "Databases" },
+              { icon: Database, label: "Data" },
             ].map(({ icon: Icon, label }) => (
               <div
                 key={label}
-                className="flex flex-col items-center gap-1.5 py-3 border-[1.5px] border-[#1A1A18] transition-colors duration-150 cursor-default"
+                className="flex flex-col items-center gap-1.5 py-3 border border-[#1A1A18]/15 transition-all duration-150 cursor-default"
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background =
-                    "#1A1A18";
-                  (e.currentTarget as HTMLDivElement).style.color = "#F0C84A";
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.background = "#1A1A18";
+                  el.style.color = "#F0C84A";
+                  el.style.borderColor = "#1A1A18";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background =
-                    "transparent";
-                  (e.currentTarget as HTMLDivElement).style.color = "#1A1A18";
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.background = "transparent";
+                  el.style.color = "#1A1A18";
+                  el.style.borderColor = "rgba(26,26,24,0.15)";
                 }}
               >
-                <Icon size={14} />
-                <span className="text-[9px] tracking-widest uppercase">
+                <Icon size={13} />
+                <span className="text-[8px] tracking-widest uppercase">
                   {label}
                 </span>
               </div>
@@ -358,49 +381,48 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ── 4. Experience ── col-span-7 */}
+        {/* 4. Experience */}
         <div
-          className="md:col-span-7 border-2 border-[#1A1A18] p-6"
+          className="md:col-span-7 border border-[#1A1A18] p-6"
           style={{ background: "#F5F2EB" }}
         >
           <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.14em] uppercase">
-              <Briefcase size={12} />
-              Experience
+            <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase">
+              <Briefcase size={11} /> Experience
             </div>
-            <a
+            <Link
               href="/experience"
-              className="flex items-center gap-1 text-[9px] tracking-widest uppercase no-underline transition-colors duration-150"
-              style={{ color: "#7A7065" }}
+              className="flex items-center gap-1 text-[9px] tracking-widest uppercase no-underline"
+              style={{ color: "#A09890" }}
               onMouseEnter={(e) =>
                 ((e.currentTarget as HTMLAnchorElement).style.color = "#1A1A18")
               }
               onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "#7A7065")
+                ((e.currentTarget as HTMLAnchorElement).style.color = "#A09890")
               }
             >
-              Full history <ArrowRight size={9} />
-            </a>
+              History <ArrowRight size={9} />
+            </Link>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col">
             {experiences.map((exp, i) => (
               <div
                 key={i}
-                className="flex items-start justify-between gap-4 pb-3"
+                className="flex items-start justify-between gap-4 py-3.5"
                 style={{
                   borderBottom:
                     i < experiences.length - 1
-                      ? "1px solid rgba(26,26,24,0.12)"
+                      ? "1px solid rgba(26,26,24,0.08)"
                       : "none",
                 }}
               >
                 <div className="flex-1">
-                  <div className="text-[12px] font-bold tracking-[0.03em] mb-0.5">
+                  <div className="text-[12px] font-bold tracking-tight mb-0.5">
                     {exp.role}
                   </div>
                   <div
                     className="text-[10px] tracking-[0.06em] uppercase mb-2"
-                    style={{ color: "#7A7065" }}
+                    style={{ color: "#A09890" }}
                   >
                     {exp.company}
                   </div>
@@ -412,7 +434,7 @@ export default function HomePage() {
                 </div>
                 <div
                   className="text-[9px] tracking-[0.08em] shrink-0 pt-0.5"
-                  style={{ color: "#7A7065" }}
+                  style={{ color: "#A09890" }}
                 >
                   {exp.period}
                 </div>
@@ -421,210 +443,70 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ── 5. Projects ── col-span-12 */}
+        {/* 6. CTA */}
         <div
-          className="md:col-span-12 border-2 border-[#1A1A18] p-6"
-          style={{ background: "#FDFAF4" }}
-        >
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.14em] uppercase">
-              <Layers size={12} />
-              Featured Projects
-            </div>
-            <a
-              href="/projects"
-              className="flex items-center gap-1 text-[9px] tracking-widest uppercase no-underline transition-colors duration-150"
-              style={{ color: "#7A7065" }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "#1A1A18")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "#7A7065")
-              }
-            >
-              All projects <ArrowRight size={9} />
-            </a>
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            {projects.map((proj, i) => (
-              <div
-                key={proj.title}
-                className="border-2 border-[#1A1A18] p-4 flex flex-col transition-all duration-150"
-                style={{
-                  background:
-                    i === 0 ? "#1A1A18" : i === 1 ? "#F0C84A" : "#F5F2EB",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform =
-                    "translate(-2px,-2px)";
-                  (e.currentTarget as HTMLDivElement).style.boxShadow =
-                    "4px 4px 0 #1A1A18";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform =
-                    "translate(0,0)";
-                  (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-                }}
-              >
-                <div
-                  className="text-[16px] mb-1"
-                  style={{
-                    fontFamily: "'DM Serif Display', serif",
-                    color: i === 0 ? "#F5F2EB" : "#1A1A18",
-                  }}
-                >
-                  {proj.title}
-                </div>
-                <div
-                  className="text-[10px] tracking-[0.04em] leading-relaxed mb-3 flex-1"
-                  style={{ color: i === 0 ? "#9A9590" : "#5A5048" }}
-                >
-                  {proj.tagline}
-                </div>
-                <div className="flex flex-wrap gap-1 mb-4">
-                  {proj.stack.map((s) => (
-                    <Tag key={s} label={s} dark={i === 0} />
-                  ))}
-                </div>
-                <div className="flex items-center justify-between">
-                  <span
-                    className="flex items-center gap-1 text-[10px]"
-                    style={{ color: i === 0 ? "#9A9590" : "#7A7065" }}
-                  >
-                    <Star size={10} /> {proj.stars}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <a
-                      href={proj.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-[9px] px-2.5 py-1.5 border-[1.5px] no-underline tracking-[0.08em] uppercase transition-colors duration-150"
-                      style={{
-                        borderColor: i === 0 ? "#444440" : "#1A1A18",
-                        color: i === 0 ? "#F5F2EB" : "#1A1A18",
-                      }}
-                      onMouseEnter={(e) => {
-                        (
-                          e.currentTarget as HTMLAnchorElement
-                        ).style.background = "#F0C84A";
-                        (e.currentTarget as HTMLAnchorElement).style.color =
-                          "#1A1A18";
-                        (
-                          e.currentTarget as HTMLAnchorElement
-                        ).style.borderColor = "#F0C84A";
-                      }}
-                      onMouseLeave={(e) => {
-                        (
-                          e.currentTarget as HTMLAnchorElement
-                        ).style.background = "transparent";
-                        (e.currentTarget as HTMLAnchorElement).style.color =
-                          i === 0 ? "#F5F2EB" : "#1A1A18";
-                        (
-                          e.currentTarget as HTMLAnchorElement
-                        ).style.borderColor = i === 0 ? "#444440" : "#1A1A18";
-                      }}
-                    >
-                      <FaGithub size={10} /> Code
-                    </a>
-                    <a
-                      href={proj.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-[9px] px-2.5 py-1.5 border-[1.5px] no-underline tracking-[0.08em] uppercase transition-colors duration-150"
-                      style={{
-                        borderColor: i === 0 ? "#F0C84A" : "#1A1A18",
-                        background: i === 0 ? "#F0C84A" : "#1A1A18",
-                        color: i === 0 ? "#1A1A18" : "#F0C84A",
-                      }}
-                      onMouseEnter={(e) => {
-                        (
-                          e.currentTarget as HTMLAnchorElement
-                        ).style.background = "transparent";
-                        (e.currentTarget as HTMLAnchorElement).style.color =
-                          i === 0 ? "#F0C84A" : "#1A1A18";
-                      }}
-                      onMouseLeave={(e) => {
-                        (
-                          e.currentTarget as HTMLAnchorElement
-                        ).style.background = i === 0 ? "#F0C84A" : "#1A1A18";
-                        (e.currentTarget as HTMLAnchorElement).style.color =
-                          i === 0 ? "#1A1A18" : "#F0C84A";
-                      }}
-                    >
-                      <ExternalLink size={10} /> Demo
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── 6. CTA / Contact Teaser ── col-span-12 */}
-        <div
-          className="md:col-span-12 border-2 border-[#1A1A18] p-6 flex flex-col md:flex-row items-center justify-between gap-6"
+          className="md:col-span-12 border border-[#1A1A18] p-6 flex flex-col md:flex-row items-center justify-between gap-6"
           style={{ background: "#F0C84A" }}
         >
           <div>
-            <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.14em] uppercase mb-2">
-              <Mail size={12} />
-              Let's Build Something
+            <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-2">
+              <Mail size={11} /> Let's Build Something
             </div>
             <div
-              className="text-[26px] leading-tight"
+              className="text-[24px] leading-tight"
               style={{ fontFamily: "'DM Serif Display', serif" }}
             >
               Got a project in mind? Let's talk.
             </div>
             <p
-              className="text-[11px] mt-1 tracking-[0.04em]"
+              className="text-[11px] mt-1 tracking-[0.03em]"
               style={{ color: "#5A4F3A" }}
             >
-              Open to freelance, contracts &amp; full-time opportunities.
+              Open to freelance, contracts & full-time.
             </p>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <a
+          <div className="flex items-center gap-3 shrink-0 flex-wrap">
+            <Link
               href="/contact"
-              className="flex items-center gap-2 px-6 py-3 text-[11px] font-bold tracking-[0.12em] uppercase border-2 border-[#1A1A18] no-underline transition-colors duration-150"
+              className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-bold tracking-[0.12em] uppercase border border-[#1A1A18] no-underline transition-all duration-150"
               style={{
                 background: "#1A1A18",
                 color: "#F0C84A",
                 fontFamily: "'Space Mono', monospace",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "#F5F2EB";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#1A1A18";
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "#FDFAF4";
+                el.style.color = "#1A1A18";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "#1A1A18";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#F0C84A";
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "#1A1A18";
+                el.style.color = "#F0C84A";
               }}
             >
-              Get in Touch <ArrowRight size={12} />
-            </a>
+              Get in Touch <ArrowRight size={11} />
+            </Link>
             <a
               href="mailto:tahsin.hassan007@gmail.com"
-              className="flex items-center gap-2 px-6 py-3 text-[11px] font-bold tracking-[0.12em] uppercase border-2 border-[#1A1A18] no-underline transition-colors duration-150"
+              className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-bold tracking-[0.12em] uppercase border border-[#1A1A18] no-underline transition-all duration-150"
               style={{
                 background: "transparent",
                 color: "#1A1A18",
                 fontFamily: "'Space Mono', monospace",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "#1A1A18";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#F0C84A";
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "#1A1A18";
+                el.style.color = "#F0C84A";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "transparent";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#1A1A18";
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.background = "transparent";
+                el.style.color = "#1A1A18";
               }}
             >
-              <Mail size={12} /> Email Me
+              <Mail size={11} /> Email Me
             </a>
           </div>
         </div>

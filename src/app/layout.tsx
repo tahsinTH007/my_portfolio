@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppSidebar } from "@/components/navigation/sidebar";
+import { ScrollNavigator } from "@/components/navigation/scroll-navigator";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-sans",
   subsets: ["latin"],
 });
-
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
@@ -32,13 +31,15 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex" style={{ background: "#1A1A18" }}>
         <TooltipProvider>
-          <AppSidebar />
-          <main
-            className="flex-1 overflow-y-auto border-l-2 border-[#1A1A18] h-screen"
-            style={{ background: "#F5F2EB" }}
-          >
-            {children}
-          </main>
+          <ScrollNavigator>
+            <AppSidebar />
+            <main
+              className="flex-1 overflow-y-auto border-l-2 border-[#1A1A18] h-screen md:pt-0 pt-13.25"
+              style={{ background: "#F5F2EB" }}
+            >
+              {children}
+            </main>
+          </ScrollNavigator>
         </TooltipProvider>
       </body>
     </html>

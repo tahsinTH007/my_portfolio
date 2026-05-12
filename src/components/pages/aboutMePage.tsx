@@ -11,6 +11,7 @@ import {
   Database,
   Shield,
   Zap,
+  Eye,
 } from "lucide-react";
 
 const timeline = [
@@ -136,26 +137,32 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-          <button
-            className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-bold tracking-[0.12em] uppercase border border-[#1A1A18] transition-all duration-150"
-            style={{
-              background: "#1A1A18",
-              color: "#F0C84A",
-              fontFamily: "'Space Mono', monospace",
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLButtonElement;
-              el.style.background = "#FDFAF4";
-              el.style.color = "#1A1A18";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLButtonElement;
-              el.style.background = "#1A1A18";
-              el.style.color = "#F0C84A";
-            }}
+          <a
+            href="/Tahsin_Hassan_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <Download size={11} /> Download CV
-          </button>
+            <button
+              className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-bold tracking-[0.12em] uppercase border border-[#1A1A18] transition-all duration-150"
+              style={{
+                background: "#1A1A18",
+                color: "#F0C84A",
+                fontFamily: "'Space Mono', monospace",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLButtonElement;
+                el.style.background = "#FDFAF4";
+                el.style.color = "#1A1A18";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLButtonElement;
+                el.style.background = "#1A1A18";
+                el.style.color = "#F0C84A";
+              }}
+            >
+              <Eye size={11} /> View CV
+            </button>
+          </a>
         </div>
 
         {/* Timeline */}

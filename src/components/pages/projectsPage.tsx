@@ -1,6 +1,6 @@
 "use client";
 
-import { Layers, Star, GitFork } from "lucide-react";
+import { Layers, Star, GitFork, ArrowRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 const projects = [
@@ -267,6 +267,58 @@ export default function ProjectsPage() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div
+        className="border-[#1A1A18] mt-6 p-6 flex flex-col md:flex-row items-center justify-between gap-6"
+        style={{ background: "#F0C84A" }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget as HTMLDivElement;
+          el.style.transform = "translate(-2px,-3px)";
+          el.style.boxShadow = "4px 5px 0 #1A1A18";
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget as HTMLDivElement;
+          el.style.transform = "translate(0,0)";
+          el.style.boxShadow = "none";
+        }}
+      >
+        <div>
+          <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-2">
+            Github
+          </div>
+          <div
+            className="text-[24px] leading-tight"
+            style={{ fontFamily: "'DM Serif Display', serif" }}
+          >
+            Wanna see more of my work?
+          </div>
+        </div>
+        <div className="flex items-center gap-3 shrink-0 flex-wrap">
+          <a
+            href="https://github.com/tahsinTH007?tab=repositories"
+            target="_blank"
+            className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-bold tracking-[0.12em] uppercase border border-[#1A1A18] no-underline transition-all duration-150"
+            style={{
+              background: "#1A1A18",
+              color: "#F0C84A",
+              fontFamily: "'Space Mono', monospace",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.background = "#FDFAF4";
+              el.style.color = "#1A1A18";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLAnchorElement;
+              el.style.background = "#1A1A18";
+              el.style.color = "#F0C84A";
+            }}
+          >
+            <FaGithub size={11} />
+            Github <ArrowRight size={11} />
+          </a>
+        </div>
       </div>
     </div>
   );

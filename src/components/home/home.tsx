@@ -6,78 +6,39 @@ import {
   MapPin,
   Briefcase,
   Code2,
-  Layers,
-  Star,
-  ExternalLink,
   ArrowRight,
   Terminal,
   Server,
   Database,
 } from "lucide-react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const skills = [
   "React",
   "Next.js",
   "Node.js",
+  "Express",
   "TypeScript",
+  "MongoDB",
   "PostgreSQL",
-  "Docker",
-  "Redis",
-  "Prisma",
 ];
 const experiences = [
   {
-    role: "Senior Full-Stack Engineer",
-    company: "Freelance / Remote",
-    period: "2024 — Present",
-    stack: ["Next.js", "Node.js", "PostgreSQL"],
-  },
-  {
     role: "Full-Stack Developer",
-    company: "Tech Startup, Dhaka",
-    period: "2023 — 2024",
-    stack: ["React", "Express", "MongoDB"],
-  },
-  {
-    role: "Junior Developer",
-    company: "Digital Agency, Dhaka",
-    period: "2022 — 2023",
-    stack: ["React", "REST APIs", "MySQL"],
-  },
-];
-const projects = [
-  {
-    title: "Nexus CRM",
-    tagline: "Multi-tenant CRM with RBAC & Stripe billing",
-    stack: ["Next.js", "PostgreSQL", "Stripe"],
-    stars: 214,
-    github: "https://github.com/",
-    demo: "https://",
-    dark: true,
-    bg: "#1A1A18",
-  },
-  {
-    title: "DevLink",
-    tagline: "Open-source developer portfolio builder",
-    stack: ["Next.js", "MongoDB", "Tailwind"],
-    stars: 892,
-    github: "https://github.com/",
-    demo: "https://",
-    dark: false,
-    bg: "#F0C84A",
-  },
-  {
-    title: "Realtime",
-    tagline: "WebSocket-powered team chat & task hub",
-    stack: ["React", "WebSockets", "Redis"],
-    stars: 147,
-    github: "https://github.com/",
-    demo: "https://",
-    dark: false,
-    bg: "#FDFAF4",
+    company: "Cyber World IT",
+    period: "August2024 — August 2025",
+    stack: [
+      "Next.js",
+      "Redux",
+      "Tailwind CSS",
+      "Node.js",
+      "Express",
+      "MySQL",
+      "Sequelize",
+    ],
   },
 ];
+
 const socials = [
   { icon: FaGithub, label: "GitHub", href: "https://github.com/tahsinTH007" },
   {
@@ -136,7 +97,7 @@ export default function HomePage() {
           className="text-[14px] tracking-[0.2em] uppercase mb-2"
           style={{ color: "#A09890" }}
         >
-          // portfolio · 2025
+          // portfolio · 2026
         </p>
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <h1
@@ -149,7 +110,7 @@ export default function HomePage() {
             Tahsin Hassan.
           </h1>
           <div
-            className="flex items-center gap-1.5 mb-1 text-[12px] tracking-[0.1em] px-3 py-1.5 border border-[#1A1A18]/15"
+            className="flex items-center gap-1.5 mb-1 text-[12px] tracking-widest px-3 py-1.5 border border-[#1A1A18]/15"
             style={{ color: "#5A5048" }}
           >
             <span
@@ -164,9 +125,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── Bento Grid ── */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-        {/* 1. Bio */}
         <div
           className="md:col-span-7 border border-[#1A1A18] p-6 flex flex-col justify-between"
           style={{ background: "#1A1A18", minHeight: "260px" }}
@@ -180,20 +139,39 @@ export default function HomePage() {
             </div>
             <p
               className="text-[12px] leading-[1.8] mb-3"
-              style={{ color: "#C8C3BA" }}
+              style={{ color: "#9A9590" }}
             >
-              Hey — I'm a{" "}
-              <span style={{ color: "#F0C84A" }}>full-stack developer</span>{" "}
-              based in Dhaka, Bangladesh. I build fast, well-designed web
-              products from database schema to pixel-perfect UI.
+              Hey — I'm <span style={{ color: "#F0C84A" }}>Tahsin Hassan</span>,
+              a full-stack developer passionate about building clean, scalable,
+              and performance-focused web applications.
             </p>
+
+            <p
+              className="text-[12px] leading-[1.8] mb-3"
+              style={{ color: "#9A9590" }}
+            >
+              I enjoy working with modern web technologies and building complete
+              products from frontend to backend — including UI design, API
+              development, and database architecture.
+            </p>
+
+            <p
+              className="text-[12px] leading-[1.8] mb-3"
+              style={{ color: "#9A9590" }}
+            >
+              I’ve worked on real-world full-stack projects where I built
+              responsive interfaces, developed REST APIs, integrated
+              authentication systems, and handled database design and
+              optimization.
+            </p>
+
             <p
               className="text-[12px] leading-[1.8]"
               style={{ color: "#6A6A62" }}
             >
-              Obsessed with clean architecture, developer experience, and
-              interfaces that feel genuinely good to use. Open to freelance &
-              full-time roles.
+              Outside of coding, I like exploring system design concepts,
+              improving my problem-solving skills, and building side projects
+              that push my limits.
             </p>
           </div>
           <div className="flex items-center gap-2 mt-6 flex-wrap">
@@ -249,7 +227,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 2. Stats */}
         <div
           className="md:col-span-5 border border-[#1A1A18] p-6 flex flex-col"
           style={{ background: "#F0C84A" }}
@@ -266,7 +243,6 @@ export default function HomePage() {
             Full-stack developer • MERN • Next.js • Backend systems
           </div>
 
-          {/* stats */}
           <div className="grid grid-cols-2 gap-2 mb-5">
             {stats.map(({ value, label }) => (
               <div
@@ -290,7 +266,6 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* tech stack highlight */}
           <div className="flex flex-wrap gap-1.5 mb-4">
             {[
               "React",
@@ -314,7 +289,6 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* location */}
           <div className="flex flex-col gap-2 mt-auto">
             <div className="flex items-center gap-2 text-[11px]">
               <MapPin size={11} /> Based in Dhaka • Open to Remote Opportunities
@@ -322,7 +296,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 3. Skills */}
         <div
           className="md:col-span-5 border border-[#1A1A18] p-6"
           style={{ background: "#FDFAF4" }}
@@ -381,7 +354,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 4. Experience */}
         <div
           className="md:col-span-7 border border-[#1A1A18] p-6"
           style={{ background: "#F5F2EB" }}
@@ -443,7 +415,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 6. CTA */}
         <div
           className="md:col-span-12 border border-[#1A1A18] p-6 flex flex-col md:flex-row items-center justify-between gap-6"
           style={{ background: "#F0C84A" }}
@@ -487,27 +458,6 @@ export default function HomePage() {
             >
               Get in Touch <ArrowRight size={11} />
             </Link>
-            <a
-              href="mailto:tahsin.hassan007@gmail.com"
-              className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-bold tracking-[0.12em] uppercase border border-[#1A1A18] no-underline transition-all duration-150"
-              style={{
-                background: "transparent",
-                color: "#1A1A18",
-                fontFamily: "'Space Mono', monospace",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement;
-                el.style.background = "#1A1A18";
-                el.style.color = "#F0C84A";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLAnchorElement;
-                el.style.background = "transparent";
-                el.style.color = "#1A1A18";
-              }}
-            >
-              <Mail size={11} /> Email Me
-            </a>
           </div>
         </div>
       </div>

@@ -31,9 +31,8 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex" style={{ background: "#1A1A18" }}>
-        <AppSidebar />
-
         <TooltipProvider>
+          <AppSidebar />
           <main
             className="flex-1 overflow-y-auto border-l-2 border-[#1A1A18] h-screen"
             style={{ background: "#F5F2EB" }}

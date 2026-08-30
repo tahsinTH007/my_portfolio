@@ -13,88 +13,64 @@ import {
 } from "lucide-react";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 const menu = [
-  { icon: Home, label: "Home", url: "/" },
-  { icon: FolderGit2, label: "Projects", url: "/projects" },
-  { icon: Briefcase, label: "Experience", url: "/experience" },
-  { icon: Code2, label: "Skills", url: "/skills" },
-  { icon: User, label: "About Me", url: "/about" },
-  { icon: Mail, label: "Contact", url: "/contact" },
+  { icon: Home, label: "Home", url: "/", code: "00" },
+  { icon: FolderGit2, label: "Projects", url: "/projects", code: "01" },
+  { icon: Briefcase, label: "Experience", url: "/experience", code: "02" },
+  { icon: Code2, label: "Skills", url: "/skills", code: "03" },
+  { icon: User, label: "About Me", url: "/about", code: "04" },
+  { icon: Mail, label: "Contact", url: "/contact", code: "05" },
 ];
 
 function SidebarContent({ onNavClick }: { onNavClick?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <div
-      className="flex flex-col justify-between h-full py-6 px-4"
-      style={{
-        fontFamily: "'Space Mono', monospace",
-        color: "#F5F2EB",
-      }}
-    >
-      {/* Identity */}
+    <div className="flex flex-col justify-between h-full py-6 px-4 bg-iron-900">
       <div className="flex flex-col gap-7">
+        {/* Identity */}
         <div className="flex flex-col gap-1">
-          <div
-            className="w-9 h-9 flex items-center justify-center text-[13px] font-bold border-2 border-[#F0C84A] mb-3"
-            style={{ color: "#F0C84A" }}
-          >
-            TH
+          <div className="flex items-center gap-2.5 mb-3">
+            <div className="w-9 h-9 flex items-center justify-center text-[13px] font-bold border-2 border-heat text-heat rounded-sm">
+              TH
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="datum text-[8px] text-iron-400">UNIT</span>
+              <span className="datum text-[9px] text-aqua">TH-2026</span>
+            </div>
           </div>
 
-          <span
-            className="text-[15px] font-bold leading-tight"
-            style={{ color: "#F5F2EB" }}
-          >
+          <span className="display text-[15px] leading-tight text-cream">
             Tahsin Hassan
           </span>
 
-          <span
-            className="text-[10px] tracking-widest uppercase"
-            style={{ color: "#7A7065" }}
-          >
+          <span className="datum text-[9px] text-iron-400">
             Full-stack Developer
           </span>
         </div>
 
-        <div className="border-t border-[#2A2A26]" />
+        <div className="flex items-center gap-2">
+          <div className="h-px flex-1 bg-iron-700" />
+          <span className="datum text-[8px] text-iron-500">NAV</span>
+          <div className="h-px flex-1 bg-iron-700" />
+        </div>
 
         {/* Nav */}
-        <nav className="flex flex-col gap-0.5">
-          {menu.map((item, i) => {
+        <nav className="flex flex-col gap-1">
+          {menu.map((item) => {
             const isActive = pathname === item.url;
             const Icon = item.icon;
 
             return (
-              <Link key={i} href={item.url} onClick={onNavClick}>
+              <Link key={item.url} href={item.url} onClick={onNavClick}>
                 <div
-                  className="flex items-center gap-2.5 px-3 py-2.5 text-[11px] tracking-[0.08em] uppercase font-bold border-[1.5px] transition-colors duration-150"
-                  style={{
-                    borderColor: isActive ? "#F0C84A" : "transparent",
-                    background: isActive ? "#F0C84A" : "transparent",
-                    color: isActive ? "#1A1A18" : "#9A9590",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      const el = e.currentTarget as HTMLDivElement;
-                      el.style.color = "#F5F2EB";
-                      el.style.borderColor = "#2A2A26";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      const el = e.currentTarget as HTMLDivElement;
-                      el.style.color = "#9A9590";
-                      el.style.borderColor = "transparent";
-                    }
-                  }}
+                  className={`nav-item ${isActive ? "nav-item--active" : ""}`}
                 >
                   <Icon size={13} />
-                  {item.label}
+                  <span className="flex-1">{item.label}</span>
+                  <span className="text-[9px] opacity-50">{item.code}</span>
                 </div>
               </Link>
             );
@@ -103,11 +79,11 @@ function SidebarContent({ onNavClick }: { onNavClick?: () => void }) {
       </div>
 
       {/* Footer */}
-      <div
-        className="text-[9px] tracking-widest uppercase"
-        style={{ color: "#444440" }}
-      >
-        &copy; {new Date().getFullYear()} Tahsin Hassan
+      <div className="flex flex-col gap-3">
+        <div className="barcode text-iron-600" />
+        <div className="datum text-[8px] text-iron-500">
+          &copy; {new Date().getFullYear()} Tahsin Hassan
+        </div>
       </div>
     </div>
   );
@@ -119,49 +95,30 @@ export function AppSidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside
-        className="hidden md:flex w-60 h-screen flex-col shrink-0 border-r-2 border-[#1A1A18]"
-        style={{ background: "#1A1A18" }}
-      >
+      <aside className="hidden md:flex w-60 h-screen flex-col shrink-0 border-r-2 border-iron-800 bg-iron-900">
         <SidebarContent />
       </aside>
 
-      <div
-        className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 border-b-2 border-[#2A2A26]"
-        style={{
-          background: "#1A1A18",
-          fontFamily: "'Space Mono', monospace",
-        }}
-      >
-        {/* Logo */}
+      {/* Mobile top bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 border-b-2 border-iron-700 bg-iron-900">
         <div className="flex items-center gap-3">
-          <div
-            className="w-8 h-8 flex items-center justify-center text-[12px] font-bold border-2 border-[#F0C84A]"
-            style={{ color: "#F0C84A" }}
-          >
+          <div className="w-8 h-8 flex items-center justify-center text-[12px] font-bold border-2 border-heat text-heat rounded-sm">
             TH
           </div>
-
-          <span className="text-[13px] font-bold" style={{ color: "#F5F2EB" }}>
-            Tahsin Hassan
-          </span>
+          <span className="display text-[13px] text-cream">Tahsin Hassan</span>
         </div>
 
         {/* Mobile Drawer */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger>
-            <div
-              className="flex items-center justify-center w-9 h-9 border border-[#2A2A26] transition-colors duration-150 hover:bg-[#2A2A26]"
-              style={{ color: "#9A9590" }}
-            >
+            <div className="flex items-center justify-center w-9 h-9 border border-iron-600 rounded-sm text-iron-300 transition-colors duration-150 hover:bg-iron-700 hover:text-cream">
               <Menu size={18} />
             </div>
           </SheetTrigger>
 
           <SheetContent
             side="left"
-            className="w-56 p-0 border-r-2 border-[#2A2A26]"
-            style={{ background: "#1A1A18" }}
+            className="w-60 p-0 border-r-2 border-iron-700 bg-iron-900"
           >
             <SidebarContent onNavClick={() => setOpen(false)} />
           </SheetContent>

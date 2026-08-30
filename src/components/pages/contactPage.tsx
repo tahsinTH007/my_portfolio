@@ -1,8 +1,9 @@
 "use client";
 
-import { Mail, Send, Phone, ClipboardCopy, Check } from "lucide-react";
+import { Mail, Send, Phone, Check, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { PageShell, PageHeader } from "@/components/layout/page-shell";
 
 const socials = [
   { icon: FaGithub, label: "GitHub", href: "https://github.com/tahsinTH007" },
@@ -13,23 +14,15 @@ const socials = [
   },
 ];
 
-const inputStyle = {
-  fontFamily: "'Space Mono', monospace",
-  background: "#FDFAF4",
-  color: "#1A1A18",
-  border: "1px solid #C8C4BC",
-  padding: "10px 12px",
-  fontSize: "11px",
-  letterSpacing: "0.03em",
-  outline: "none",
-  width: "100%",
-  transition: "all 0.15s",
-};
+type Status =
+  | { kind: "idle" }
+  | { kind: "sending" }
+  | { kind: "ok" }
+  | { kind: "error"; message: string };
 
 export default function ContactPage() {
   const [showPhone, setShowPhone] = useState(false);
-  const [loading, setLoading] = useState(false);
-
+  const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   const [form, setForm] = useState({
     name: "",
@@ -41,144 +34,98 @@ export default function ContactPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async () => {
-    if (loading) return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status.kind === "sending") return;
 
-    setLoading(true);
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      setStatus({
+        kind: "error",
+        message: "Name, email and message are required",
+      });
+      return;
+    }
+
+    setStatus({ kind: "sending" });
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
       const data = await res.json();
 
-      console.log("Response:", data);
-
       if (!res.ok) {
-        alert(data.message || "Failed to send");
+        setStatus({
+          kind: "error",
+          message: data.message || "Transmission failed",
+        });
         return;
       }
 
-      alert("Message sent successfully!");
-
-      setForm({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong");
-    } finally {
-      setLoading(false);
+      setStatus({ kind: "ok" });
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      setStatus({ kind: "error", message: "Network error — try again" });
     }
   };
 
+  const sending = status.kind === "sending";
+
   return (
-    <div
-      className="min-h-screen px-6 py-8"
-      style={{
-        fontFamily: "'Space Mono', monospace",
-        background: "#F5F2EB",
-        color: "#1A1A18",
-      }}
-    >
-      <div className="mb-6 pb-6 border-b border-[#1A1A18]/10">
-        <p
-          className="text-[10px] tracking-[0.2em] uppercase mb-2"
-          style={{ color: "#A09890" }}
-        >
-          // get in touch — response within 24–48 hrs
-        </p>
-        <h1
-          className="text-[clamp(2.5rem,6vw,4.5rem)] leading-none"
-          style={{
-            fontFamily: "'DM Serif Display', serif",
-            letterSpacing: "-2px",
-          }}
-        >
-          Contact.
-        </h1>
-      </div>
+    <PageShell>
+      <PageHeader
+        index="05"
+        kicker="// get in touch — response within 24–48 hrs"
+        title="Contact."
+        sys="SYS://CONTACT"
+      />
 
       <div className="grid md:grid-cols-2 gap-3">
         {/* Direct */}
-        <div
-          className="border border-[#1A1A18] p-6 transition-all duration-200"
-          style={{ background: "#FDFAF4" }}
-        >
-          <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-5 text-black">
-            <Mail size={11} /> Direct Contact
-          </div>
-          <div className="flex flex-col gap-2 mb-5">
-            <div
-              className="flex items-center justify-between gap-3 text-[11px] px-3 py-2.5 border border-[#C8C4BC] cursor-pointer transition-all duration-150"
-              style={{ background: "#F5F2EB" }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.borderColor = "#1A1A18";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.borderColor = "#C8C4BC";
-              }}
-            >
-              <div className="flex items-center gap-3">
-                <Mail size={12} style={{ color: "#A09890" }} />
-                <span style={{ color: "#3A3530" }}>
-                  tahsin.hassan007@gmail.com
-                </span>
-              </div>
+        <section className="panel panel--cream p-6">
+          <div className="flex items-center justify-between mb-5">
+            <div className="label flex items-center gap-2">
+              <Mail size={11} /> Direct Contact
             </div>
+            <span className="datum text-[9px] text-cream-500">CH-01</span>
+          </div>
 
-            <div
+          <div className="flex flex-col gap-2">
+            <a
+              href="mailto:tahsin.hassan007@gmail.com"
+              className="flex items-center gap-3 text-[11px] px-3 py-2.5 border-2 border-iron-950/25 rounded-sm text-iron-800 no-underline transition-colors duration-150 hover:border-iron-950 hover:bg-cream-100"
+            >
+              <Mail size={12} className="text-rust" />
+              tahsin.hassan007@gmail.com
+            </a>
+
+            <button
+              type="button"
               onClick={() => setShowPhone((prev) => !prev)}
-              className="flex items-center justify-between gap-3 text-[11px] px-3 py-2.5 border border-[#C8C4BC] cursor-pointer transition-all duration-150"
-              style={{ background: "#F5F2EB" }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.borderColor = "#1A1A18";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLDivElement;
-                el.style.borderColor = "#C8C4BC";
-              }}
+              className="flex items-center gap-3 text-[11px] px-3 py-2.5 border-2 border-iron-950/25 rounded-sm text-iron-800 text-left transition-colors duration-150 hover:border-iron-950 hover:bg-cream-100"
             >
-              <div className="flex items-center gap-3">
-                <Phone size={12} style={{ color: "#A09890" }} />{" "}
-                <span style={{ color: "#3A3530" }}>
-                  {showPhone
-                    ? "+8801918271328"
-                    : "Click to reveal phone number"}
-                </span>
-              </div>
-            </div>
+              <Phone size={12} className="text-rust" />
+              {showPhone ? "+8801918271328" : "Click to reveal phone number"}
+            </button>
           </div>
-        </div>
+        </section>
 
-        <div
-          className="border border-[#1A1A18] p-6"
-          style={{ background: "#1A1A18" }}
-        >
-          <div
-            className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-5"
-            style={{ color: "#F0C84A" }}
-          >
-            <span className="w-2 h-2 rounded-full border border-[#F0C84A] inline-block" />{" "}
-            Network
+        {/* Network */}
+        <section className="panel panel--iron brackets p-6">
+          <div className="flex items-center justify-between mb-5">
+            <div className="label flex items-center gap-2 text-aqua">
+              <span className="w-2 h-2 rounded-full border border-aqua inline-block" />
+              Network
+            </div>
+            <span className="datum text-[9px] text-iron-400">CH-02</span>
           </div>
+
           <div className="grid grid-cols-1 gap-2">
             {socials.map(({ icon: Icon, label, href }) => (
               <a
@@ -186,149 +133,112 @@ export default function ContactPage() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[11px] px-3.5 py-2.5 border no-underline transition-all duration-150 tracking-[0.04em]"
-                style={{
-                  background: "#1E1E1C",
-                  color: "#9A9590",
-                  borderColor: "#2A2A26",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.background = "#F0C84A";
-                  el.style.color = "#1A1A18";
-                  el.style.borderColor = "#F0C84A";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.background = "#1E1E1C";
-                  el.style.color = "#9A9590";
-                  el.style.borderColor = "#2A2A26";
-                }}
+                className="flex items-center gap-2.5 text-[11px] px-3.5 py-2.5 border border-iron-600 rounded-sm bg-iron-900 text-iron-300 no-underline transition-all duration-150 hover:bg-heat hover:border-heat hover:text-iron-950"
               >
                 <Icon size={13} /> {label}
               </a>
             ))}
           </div>
-        </div>
+        </section>
 
-        <div
-          className="border border-[#1A1A18] p-6 md:col-span-2"
-          style={{ background: "#F0C84A" }}
-        >
-          <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.18em] uppercase mb-5">
-            <Send size={11} /> Send a Message
+        {/* Form */}
+        <section className="panel panel--heat md:col-span-2 p-6">
+          <div className="flex items-center justify-between mb-5">
+            <div className="label flex items-center gap-2">
+              <Send size={11} /> Send a Message
+            </div>
+            <span className="datum text-[9px] opacity-60">TX-FORM</span>
           </div>
-          <div className="grid md:grid-cols-2 gap-2.5 mb-2.5">
+
+          <form onSubmit={handleSubmit}>
+            <div className="grid md:grid-cols-2 gap-2.5 mb-2.5">
+              <div className="flex flex-col">
+                <label htmlFor="cf-name" className="sr-only">
+                  Your name
+                </label>
+                <input
+                  id="cf-name"
+                  className="field"
+                  name="name"
+                  type="text"
+                  placeholder="YOUR NAME"
+                  value={form.name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="cf-email" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="cf-email"
+                  className="field"
+                  name="email"
+                  type="email"
+                  placeholder="EMAIL ADDRESS"
+                  value={form.email}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <label htmlFor="cf-subject" className="sr-only">
+              Subject
+            </label>
             <input
-              name="name"
+              id="cf-subject"
+              className="field mb-2.5"
+              name="subject"
               type="text"
-              placeholder="YOUR NAME"
-              value={form.name}
+              placeholder="SUBJECT"
+              value={form.subject}
               onChange={handleChange}
-              style={inputStyle}
-              onFocus={(e) => {
-                e.target.style.borderColor = "#1A1A18";
-                e.target.style.background = "#fff";
-                e.target.style.boxShadow = "3px 3px 0 #1A1A18";
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = "#C8C4BC";
-                e.target.style.background = "#FDFAF4";
-                e.target.style.boxShadow = "none";
-              }}
             />
-            <input
-              name="email"
-              type="email"
-              placeholder="EMAIL ADDRESS"
-              value={form.email}
+
+            <label htmlFor="cf-message" className="sr-only">
+              Your message
+            </label>
+            <textarea
+              id="cf-message"
+              className="field mb-4 resize-y block"
+              name="message"
+              placeholder="YOUR MESSAGE..."
+              rows={5}
+              value={form.message}
               onChange={handleChange}
-              style={inputStyle}
-              onFocus={(e) => {
-                e.target.style.borderColor = "#1A1A18";
-                e.target.style.background = "#fff";
-                e.target.style.boxShadow = "3px 3px 0 #1A1A18";
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = "#C8C4BC";
-                e.target.style.background = "#FDFAF4";
-                e.target.style.boxShadow = "none";
-              }}
             />
-          </div>
-          <input
-            name="subject"
-            type="text"
-            placeholder="SUBJECT"
-            value={form.subject}
-            onChange={handleChange}
-            style={{ ...inputStyle, marginBottom: "10px" }}
-            onFocus={(e) => {
-              e.target.style.borderColor = "#1A1A18";
-              e.target.style.background = "#fff";
-              e.target.style.boxShadow = "3px 3px 0 #1A1A18";
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = "#C8C4BC";
-              e.target.style.background = "#FDFAF4";
-              e.target.style.boxShadow = "none";
-            }}
-          />
-          <textarea
-            name="message"
-            placeholder="YOUR MESSAGE..."
-            rows={5}
-            onChange={handleChange}
-            value={form.message}
-            style={{
-              ...inputStyle,
-              resize: "vertical",
-              display: "block",
-              marginBottom: "16px",
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = "#1A1A18";
-              e.target.style.background = "#fff";
-              e.target.style.boxShadow = "3px 3px 0 #1A1A18";
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = "#C8C4BC";
-              e.target.style.background = "#FDFAF4";
-              e.target.style.boxShadow = "none";
-            }}
-          />
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <button
-              onClick={handleSubmit}
-              disabled={loading}
-              className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-bold tracking-[0.12em] uppercase border border-[#1A1A18] transition-all duration-150"
-              style={{
-                background: "#1A1A18",
-                color: "#F0C84A",
-                fontFamily: "'Space Mono', monospace",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLButtonElement;
-                el.style.background = "#FDFAF4";
-                el.style.color = "#1A1A18";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLButtonElement;
-                el.style.background = "#1A1A18";
-                el.style.color = "#F0C84A";
-              }}
-            >
-              <Send size={11} /> {loading ? "Sending..." : "Transmit"}
-            </button>
-            <p
-              className="text-[9px] tracking-[0.08em]"
-              style={{ color: "#5A4F3A" }}
-            >
-              &gt;&gt; enc: on &nbsp;|&nbsp; status: ready
-            </p>
-          </div>
-        </div>
+
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <button type="submit" disabled={sending} className="btn btn--dark">
+                <Send size={11} /> {sending ? "Transmitting..." : "Transmit"}
+              </button>
+
+              {/* status readout */}
+              <div
+                role="status"
+                aria-live="polite"
+                className="datum text-[9px] flex items-center gap-2"
+              >
+                {status.kind === "ok" && (
+                  <span className="flex items-center gap-1.5 text-iron-950">
+                    <Check size={11} /> Message sent — talk soon
+                  </span>
+                )}
+                {status.kind === "error" && (
+                  <span className="flex items-center gap-1.5 text-cream-100 bg-rust px-2 py-1 rounded-sm">
+                    <AlertTriangle size={11} /> {status.message}
+                  </span>
+                )}
+                {(status.kind === "idle" || sending) && (
+                  <span className="opacity-60">
+                    &gt;&gt; enc: on | status: {sending ? "sending" : "ready"}
+                  </span>
+                )}
+              </div>
+            </div>
+          </form>
+        </section>
       </div>
-    </div>
+    </PageShell>
   );
 }

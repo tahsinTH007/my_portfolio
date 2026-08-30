@@ -107,14 +107,14 @@ export default function HomePage() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn--ghost !py-2 !px-3 !text-[10px]"
+                className="btn btn--ghost py-2! px-3! text-[10px]!"
               >
                 <Icon size={12} /> {label}
               </a>
             ))}
             <a
               href="mailto:tahsin.hassan007@gmail.com"
-              className="btn !py-2 !px-3 !text-[10px] !normal-case !tracking-[0.04em] border-heat/40 text-heat hover:bg-heat hover:text-iron-950"
+              className="btn py-2! px-3! text-[10px]! normal-case! tracking-[0.04em]! border-heat/40 text-heat hover:bg-heat hover:text-iron-950"
             >
               <Mail size={12} /> tahsin.hassan007@gmail.com
             </a>
@@ -156,7 +156,7 @@ export default function HomePage() {
           <div className="flex flex-wrap gap-1.5 mb-4">
             {["React", "Next.js", "Node.js", "Express", "PostgreSQL"].map(
               (t) => (
-                <span key={t} className="tag tag--on-light !bg-cream-100">
+                <span key={t} className="tag tag--on-light bg-cream-100!">
                   {t}
                 </span>
               ),

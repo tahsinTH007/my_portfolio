@@ -32,7 +32,7 @@ export default function NotFound() {
           </h1>
           <span
             aria-hidden="true"
-            className="display absolute left-0 top-0 text-[clamp(3.5rem,13vw,9rem)] leading-[0.85] text-rust opacity-40 translate-x-[3px] translate-y-[3px] select-none"
+            className="display absolute left-0 top-0 text-[clamp(3.5rem,13vw,9rem)] leading-[0.85] text-rust opacity-40 translate-x-0.75 translate-y-0.75 select-none"
           >
             404
           </span>
